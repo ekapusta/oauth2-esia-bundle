@@ -1,0 +1,8 @@
+/.*
+!/.gitignore
+!/.php_cs.dist
+/composer.lock
+/*.phar
+/scenarios/
+/tests/TestKernel/
+/vendor/
