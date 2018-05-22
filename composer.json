@@ -31,8 +31,9 @@
 	},
 	"require-dev": {
 		"g-1-a/composer-test-scenarios": "^2",
+		"guzzlehttp/guzzle": "^6.3",
 		"monolog/monolog": "^1.23",
-		"phpunit/phpunit": "^5.0",
+		"phpunit/phpunit": "^5.7",
 		"squizlabs/php_codesniffer": "^2.7",
 		"symfony/framework-bundle": " ^2.8 || ^3 || ^4"
 	},
