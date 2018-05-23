@@ -1,6 +1,10 @@
 OAuth2 ESIA bundle
 ==================
 
+[![Build Status](https://travis-ci.org/ekapusta/oauth2-esia-bundle.svg?branch=develop)](https://travis-ci.org/ekapusta/oauth2-esia-bundle)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/ekapusta/oauth2-esia-bundle/blob/develop/LICENSE.md)
+<a href="https://esia.gosuslugi.ru/"><img src="https://esia.gosuslugi.ru/idp/resources/img/flt/ru/logo-simple.png" height="16" /></a>
+
 Configuration and symfony services for [ekapusta/oauth2-esia](https://github.com/ekapusta/oauth2-esia).
 
 

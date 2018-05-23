@@ -1,6 +1,7 @@
 /.*
 !/.gitignore
 !/.php_cs.dist
+!/.travis.yml
 /composer.lock
 /*.phar
 /scenarios/

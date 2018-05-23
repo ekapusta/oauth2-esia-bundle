@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4edac3d5bf06b1b030c53e48686be36d",
+    "content-hash": "fb4bcba24fdfee3ff8c8d778362938cd",
     "packages": [
         {
             "name": "ekapusta/oauth2-esia",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ekapusta/oauth2-esia.git",
-                "reference": "9166dd4d176272374c13cfaea8b02c32d543f142"
+                "reference": "737018661fab517c020880e0e704e131d42a060a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ekapusta/oauth2-esia/zipball/9166dd4d176272374c13cfaea8b02c32d543f142",
-                "reference": "9166dd4d176272374c13cfaea8b02c32d543f142",
+                "url": "https://api.github.com/repos/ekapusta/oauth2-esia/zipball/737018661fab517c020880e0e704e131d42a060a",
+                "reference": "737018661fab517c020880e0e704e131d42a060a",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,7 @@
                 "oauth2-provider",
                 "openid-connect"
             ],
-            "time": "2018-05-22T05:46:15+00:00"
+            "time": "2018-05-23T09:04:04+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

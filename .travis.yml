@@ -1,0 +1,35 @@
+language: php
+
+branches:
+  except:
+    - master
+    - /^[0-9]/
+
+matrix:
+  include:
+    - php: 7.2
+      env: 'SCENARIO=symfony4 DEPENDENCIES=highest'
+    - php: 7.1
+      env: 'SCENARIO=symfony4'
+    - php: 7.0.11
+      env: 'SCENARIO=symfony3 DEPENDENCIES=highest'
+    - php: 7.0.11
+      env: 'SCENARIO=symfony3'
+    - php: 5.6
+      env: 'SCENARIO=symfony2 DEPENDENCIES=lowest'
+    - php: 5.6
+      env: 'SCENARIO=symfony2'
+    - php: 7.0.11
+    - php: 5.6
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+install:
+  - ln --symbolic composer.lock.dist composer.lock
+  - composer update nothing
+  - composer scenario "${SCENARIO}" "${DEPENDENCIES-lock}"
+
+script:
+  - composer test
