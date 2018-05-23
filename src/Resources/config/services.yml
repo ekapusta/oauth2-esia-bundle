@@ -1,0 +1,72 @@
+parameters:
+
+    ekapusta_oauth2_esia.signer.class_name: Ekapusta\OAuth2Esia\Security\Signer\OpensslCli
+    ekapusta_oauth2_esia.signer.certificate_path: ~
+    ekapusta_oauth2_esia.signer.private_key_path: ~
+    ekapusta_oauth2_esia.signer.private_key_password: ~
+    ekapusta_oauth2_esia.signer.tool_path: openssl
+
+    # Available by EkapustaOAuth2EsiaExtension
+    # ekapusta_oauth2_esia.vendor.resources_path: vendor/ekapusta/oauth2-esia/resources
+
+    ekapusta_oauth2_esia.client_id: ~
+    ekapusta_oauth2_esia.redirect_uri: ~
+    ekapusta_oauth2_esia.default_scopes: ['openid', 'fullname']
+    ekapusta_oauth2_esia.remote_url: 'https://esia.gosuslugi.ru'
+    ekapusta_oauth2_esia.remote_certificate_path: '%ekapusta_oauth2_esia.vendor.resources_path%/esia.prod.cer'
+
+    ekapusta_oauth2_esia.logger.class: Psr\Log\NullLogger
+    ekapusta_oauth2_esia.logger.prefix: oauth2_esia
+    ekapusta_oauth2_esia.http_client.log_format: '[{ts}] "{method} {target} HTTP/{version}" {code}'
+    ekapusta_oauth2_esia.http_client.log_level: debug
+
+services:
+
+    ekapusta_oauth2_esia.signer:
+        public: false
+        class: '%ekapusta_oauth2_esia.signer.class_name%'
+        arguments:
+            - '%ekapusta_oauth2_esia.signer.certificate_path%'
+            - '%ekapusta_oauth2_esia.signer.private_key_path%'
+            - '%ekapusta_oauth2_esia.signer.private_key_password%'
+            - '%ekapusta_oauth2_esia.signer.tool_path%'
+
+    ekapusta_oauth2_esia.logger:
+        public: false
+        class: '%ekapusta_oauth2_esia.logger.class%'
+        arguments:
+            - '%ekapusta_oauth2_esia.logger.prefix%'
+
+    ekapusta_oauth2_esia.http_client.handler:
+        public: false
+        class: GuzzleHttp\Handler\CurlHandler
+        factory: ['Ekapusta\OAuth2EsiaBundle\DependencyInjection\Factory', 'createHttpHandler']
+
+    ekapusta_oauth2_esia.http_client:
+        public: false
+        class: 'GuzzleHttp\ClientInterface'
+        factory: ['Ekapusta\OAuth2EsiaBundle\DependencyInjection\Factory', createHttpClient]
+        arguments:
+            - '@ekapusta_oauth2_esia.logger'
+            - '%ekapusta_oauth2_esia.http_client.log_format%'
+            - '%ekapusta_oauth2_esia.http_client.log_level%'
+            - '@ekapusta_oauth2_esia.http_client.handler'
+
+    ekapusta_oauth2_esia.provider:
+        class: Ekapusta\OAuth2Esia\Provider\EsiaProvider
+        arguments:
+            -
+                clientId: '%ekapusta_oauth2_esia.client_id%'
+                redirectUri: '%ekapusta_oauth2_esia.redirect_uri%'
+                defaultScopes: '%ekapusta_oauth2_esia.default_scopes%'
+                remoteUrl: '%ekapusta_oauth2_esia.remote_url%'
+                remoteCertificatePath: '%ekapusta_oauth2_esia.remote_certificate_path%'
+            -
+                signer: '@ekapusta_oauth2_esia.signer'
+                httpClient: '@ekapusta_oauth2_esia.http_client'
+
+    # Simplified facade with three methods
+    ekapusta_oauth2_esia.service:
+        class: Ekapusta\OAuth2Esia\EsiaService
+        arguments:
+            - '@ekapusta_oauth2_esia.provider'
