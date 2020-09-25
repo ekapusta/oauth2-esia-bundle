@@ -55,6 +55,7 @@
 		"unit": "phpunit --colors=always --debug",
 		"coverage": "/usr/bin/env phpdbg -qrr vendor/bin/phpunit --debug --coverage-html ./.coverage --coverage-text",
 		"fix": "php-cs-fixer fix",
+		"f": "@fix",
 		"clear-kernel-cache": "rm -rf tests/TestKernel/",
 		"lint": [
 			"find src -name '*.php' -print0 | xargs -0 -n1 php -l",
