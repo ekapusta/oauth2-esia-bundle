@@ -28,7 +28,7 @@ cache:
 
 install:
   - ln --symbolic composer.lock.dist composer.lock
-  - composer update nothing
+  - COMPOSER_MEMORY_LIMIT=-1 composer update nothing
   - composer scenario "${SCENARIO}" "${DEPENDENCIES-lock}"
 
 script:
