@@ -6,8 +6,11 @@ return PhpCsFixer\Config::create()
         '@Symfony:risky' => true,
         'general_phpdoc_annotation_remove' => ['@author'],
         'array_syntax' => ['syntax' => 'short'],
+        'native_constant_invocation' => ['fix_built_in' => false],
+        'native_function_invocation' => ['include' => []],
         'no_unreachable_default_argument_value' => true,
         'ordered_imports' => true,
+        'self_accessor' => false,
     ])
     ->setRiskyAllowed(true)
     ->setFinder(
@@ -15,9 +18,6 @@ return PhpCsFixer\Config::create()
             ->in([
                 __DIR__ . '/src',
                 __DIR__ . '/tests'
-            ])
-            ->exclude([
-                'TestKernel'
             ])
     )
 ;
