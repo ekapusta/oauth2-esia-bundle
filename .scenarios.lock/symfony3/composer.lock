@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75d6272dd5d125ddc0af7634e6cf1c45",
+    "content-hash": "7d67da5405e6f3b036c9e3bf25b30e94",
     "packages": [
         {
             "name": "ekapusta/oauth2-esia",
