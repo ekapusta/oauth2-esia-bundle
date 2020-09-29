@@ -5,20 +5,26 @@ branches:
     - master
     - /^[0-9]/
 
+env:
+   - COMPOSER_MEMORY_LIMIT=-1
+
 matrix:
   include:
     - php: 7.2
-      env: 'SCENARIO=symfony4 DEPENDENCIES=highest'
+      env: SCENARIO=symfony4
+           DEPENDENCIES=highest
     - php: 7.1
-      env: 'SCENARIO=symfony4'
+      env: SCENARIO=symfony4
     - php: 7.0.11
-      env: 'SCENARIO=symfony3 DEPENDENCIES=highest'
+      env: SCENARIO=symfony3
+           DEPENDENCIES=highest
     - php: 7.0.11
-      env: 'SCENARIO=symfony3'
+      env: SCENARIO=symfony3
     - php: 5.6
-      env: 'SCENARIO=symfony2 DEPENDENCIES=lowest'
+      env: SCENARIO=symfony2
+           DEPENDENCIES=lowest
     - php: 5.6
-      env: 'SCENARIO=symfony2'
+      env: SCENARIO=symfony2
     - php: 7.0.11
     - php: 5.6
 
@@ -28,8 +34,7 @@ cache:
 
 install:
   - ln --symbolic composer.lock.dist composer.lock
-  - COMPOSER_MEMORY_LIMIT=-1 composer update nothing
-  - composer scenario "${SCENARIO}" "${DEPENDENCIES-lock}"
+  - '.scenarios.lock/install "${SCENARIO}" "${DEPENDENCIES}"'
 
 script:
   - composer test

@@ -58,7 +58,17 @@ To use test mode put your provider to test portal as:
 
 ```yaml
 ekapusta_oauth2_esia.remote_url: 'https://esia-portal1.test.gosuslugi.ru'
-ekapusta_oauth2_esia.remote_certificate_path: '%ekapusta_oauth2_esia.vendor.resources_path%/esia.test.cer'
+ekapusta_oauth2_esia.remote_public_key: '%ekapusta_oauth2_esia.vendor.resources_path%/esia.test.public.key'
+```
+
+
+### RS256 algo
+
+By default we now use GOST algo for remote verification. To use RSA RS256:
+
+```yaml
+ekapusta_oauth2_esia.remote_public_key: '%ekapusta_oauth2_esia.vendor.resources_path%/esia.prod.public.key'
+ekapusta_oauth2_esia.remote_signer.algorytm: 'RS256'
 ```
 
 

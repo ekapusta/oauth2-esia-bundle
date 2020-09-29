@@ -19,7 +19,7 @@
 	],
 	"require": {
 		"php": "^5.6 || ^7.0",
-		"ekapusta/oauth2-esia": "^1.3",
+		"ekapusta/oauth2-esia": "^1.4",
 		"symfony/config": "^2.8 || ^3 || ^4",
 		"symfony/dependency-injection": "^2.8 || ^3 || ^4",
 		"symfony/http-kernel": "^2.8 || ^3 || ^4"
@@ -30,7 +30,7 @@
 		}
 	},
 	"require-dev": {
-		"g-1-a/composer-test-scenarios": "^2",
+		"g1a/composer-test-scenarios": "^3.2",
 		"guzzlehttp/guzzle": "^6.3",
 		"monolog/monolog": "^1.23",
 		"phpunit/phpunit": "^5.7",
@@ -61,6 +61,7 @@
 			"find src -name '*.php' -print0 | xargs -0 -n1 php -l",
 			"find tests -name '*.php' -print0 | xargs -0 -n1 php -l"
 		],
+		"t": "@test",
 		"test": [
 			"@clear-kernel-cache",
 			"@lint",
@@ -79,12 +80,46 @@
 			"@composer scenario symfony4",
 			"mkdir -p vendor/symfony/polyfill-php70/Resources/stubs",
 			"@test"
-		],
-		"scenario": "scenarios/install",
-		"post-update-cmd": [
-			"create-scenario symfony2 'symfony/dependency-injection:^2.8' --platform-php '5.6' --no-lockfile",
-			"create-scenario symfony3 'symfony/dependency-injection:^3.0' --platform-php '5.6'",
-			"create-scenario symfony4 'symfony/dependency-injection:^4.0' --platform-php '7.1.3' --no-lockfile"
 		]
+	},
+	"extra": {
+		"scenarios": {
+			"symfony2": {
+				"scenario-options": {
+                    "create-lockfile": "false"
+                },
+				"require": {
+					"symfony/dependency-injection": "^2.8"
+				},
+				"config": {
+                    "platform": {
+                        "php": "5.6"
+                    }
+                }
+			},
+			"symfony3": {
+				"require": {
+					"symfony/dependency-injection": "^3.0"
+				},
+				"config": {
+                    "platform": {
+                        "php": "5.6"
+                    }
+                }
+			},
+			"symfony4": {
+				"scenario-options": {
+                    "create-lockfile": "false"
+                },
+				"require": {
+					"symfony/dependency-injection": "^4.0"
+				},
+				"config": {
+                    "platform": {
+                        "php": "7.1.3"
+                    }
+                }
+			}
+		}
 	}
 }

@@ -1,0 +1,86 @@
+{
+    "name": "ekapusta/oauth2-esia-bundle",
+    "description": "Configuration and symfony services for ekapusta/oauth2-esia.",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Ustimenko",
+            "email": "ustimenko.alexander@gmail.com"
+        }
+    ],
+    "keywords": [
+        "oauth2",
+        "oauth2-provider",
+        "openid-connect",
+        "esia",
+        "symfony",
+        "bundle"
+    ],
+    "require": {
+        "symfony/dependency-injection": "^2.8",
+        "php": "^5.6 || ^7.0",
+        "ekapusta/oauth2-esia": "^1.4",
+        "symfony/config": "^2.8 || ^3 || ^4",
+        "symfony/http-kernel": "^2.8 || ^3 || ^4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ekapusta\\OAuth2EsiaBundle\\": "../../src"
+        }
+    },
+    "require-dev": {
+        "g1a/composer-test-scenarios": "^3.2",
+        "guzzlehttp/guzzle": "^6.3",
+        "monolog/monolog": "^1.23",
+        "phpunit/phpunit": "^5.7",
+        "squizlabs/php_codesniffer": "^2.7",
+        "symfony/framework-bundle": " ^2.8 || ^3 || ^4"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ekapusta\\OAuth2EsiaBundle\\Tests\\": "../../tests"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "5.6"
+        },
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "vendor-dir": "../../vendor"
+    },
+    "scripts": {
+        "cs": "phpcs --standard=PSR2 -n src",
+        "cbf": "phpcbf --standard=PSR2 -n src",
+        "unit": "phpunit --colors=always --debug",
+        "coverage": "/usr/bin/env phpdbg -qrr vendor/bin/phpunit --debug --coverage-html ./.coverage --coverage-text",
+        "fix": "php-cs-fixer fix",
+        "f": "@fix",
+        "clear-kernel-cache": "rm -rf tests/TestKernel/",
+        "lint": [
+            "find src -name '*.php' -print0 | xargs -0 -n1 php -l",
+            "find tests -name '*.php' -print0 | xargs -0 -n1 php -l"
+        ],
+        "t": "@test",
+        "test": [
+            "@clear-kernel-cache",
+            "@lint",
+            "@unit",
+            "@cs"
+        ],
+        "test2": [
+            "@composer scenario symfony2",
+            "@test"
+        ],
+        "test3": [
+            "@composer scenario symfony3",
+            "@test"
+        ],
+        "test4": [
+            "@composer scenario symfony4",
+            "mkdir -p vendor/symfony/polyfill-php70/Resources/stubs",
+            "@test"
+        ]
+    }
+}
