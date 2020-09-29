@@ -29,7 +29,7 @@ class ProviderTest extends ServiceTestCase
      */
     public function testLoggerInjected()
     {
-        $wtf = $this->provider()->getAccessToken('authorization_code', ['code' => '...']);
+        $this->provider()->getAccessToken('authorization_code', ['code' => '...']);
     }
 
     /**

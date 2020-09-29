@@ -5,6 +5,11 @@ parameters:
     ekapusta_oauth2_esia.signer.private_key_path: ~
     ekapusta_oauth2_esia.signer.private_key_password: ~
     ekapusta_oauth2_esia.signer.tool_path: openssl
+    ekapusta_oauth2_esia.signer.post_params: ~
+
+    ekapusta_oauth2_esia.remote_signer.class_name: Ekapusta\OAuth2Esia\Security\JWTSigner\OpenSslCliJwtSigner
+    ekapusta_oauth2_esia.remote_signer.tool_path: '%ekapusta_oauth2_esia.signer.tool_path%'
+    ekapusta_oauth2_esia.remote_signer.algorytm: 'GOST3410_2012_256'
 
     # Available by EkapustaOAuth2EsiaExtension
     # ekapusta_oauth2_esia.vendor.resources_path: vendor/ekapusta/oauth2-esia/resources
@@ -13,7 +18,7 @@ parameters:
     ekapusta_oauth2_esia.redirect_uri: ~
     ekapusta_oauth2_esia.default_scopes: ['openid', 'fullname']
     ekapusta_oauth2_esia.remote_url: 'https://esia.gosuslugi.ru'
-    ekapusta_oauth2_esia.remote_certificate_path: '%ekapusta_oauth2_esia.vendor.resources_path%/esia.prod.cer'
+    ekapusta_oauth2_esia.remote_public_key: '%ekapusta_oauth2_esia.vendor.resources_path%/esia.gost.prod.public.key'
 
     ekapusta_oauth2_esia.logger.class: Psr\Log\NullLogger
     ekapusta_oauth2_esia.logger.prefix: oauth2_esia
@@ -30,6 +35,14 @@ services:
             - '%ekapusta_oauth2_esia.signer.private_key_path%'
             - '%ekapusta_oauth2_esia.signer.private_key_password%'
             - '%ekapusta_oauth2_esia.signer.tool_path%'
+            - '%ekapusta_oauth2_esia.signer.post_params%'
+
+    ekapusta_oauth2_esia.remote_signer:
+        public: false
+        class: '%ekapusta_oauth2_esia.remote_signer.class_name%'
+        arguments:
+            - '%ekapusta_oauth2_esia.remote_signer.tool_path%'
+            - '%ekapusta_oauth2_esia.remote_signer.algorytm%'
 
     ekapusta_oauth2_esia.logger:
         public: false
@@ -60,9 +73,10 @@ services:
                 redirectUri: '%ekapusta_oauth2_esia.redirect_uri%'
                 defaultScopes: '%ekapusta_oauth2_esia.default_scopes%'
                 remoteUrl: '%ekapusta_oauth2_esia.remote_url%'
-                remoteCertificatePath: '%ekapusta_oauth2_esia.remote_certificate_path%'
+                remotePublicKey: '%ekapusta_oauth2_esia.remote_public_key%'
             -
                 signer: '@ekapusta_oauth2_esia.signer'
+                remoteSigner: '@ekapusta_oauth2_esia.remote_signer'
                 httpClient: '@ekapusta_oauth2_esia.http_client'
 
     # Simplified facade with three methods
